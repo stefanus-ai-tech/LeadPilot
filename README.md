@@ -20,8 +20,8 @@
 [**✨ Key Features**](#-key-features) •
 [**🏗️ Architecture**](#️-system-architecture) •
 [**📊 Scoring Logic**](#-scoring-rules--rubric) •
-[**📁 Batch CSV Workflow**](#-batch-csv-processing-primary) •
-[**🖥️ Web Dashboard**](#️-interactive-web-demo) •
+[**📁 Batch Processing**](#-how-to-run) •
+[**📈 Excel Reports**](#output-files-structure) •
 [**💼 Enterprise Setup**](#-commercial--custom-deployment)
 
 <br/>
@@ -72,7 +72,7 @@ flowchart TD
     classDef score fill:#0f172a,stroke:#22c55e,stroke-width:2px,color:#fff;
     classDef out fill:#1e1b4b,stroke:#6366f1,stroke-width:2px,color:#fff;
 
-    A[📥 Inbound Lead<br/>CSV Batch / Web UI / REST API]:::input --> B[1. Pydantic v2 Normalization<br/>Strip Whitespace · Sanitize Email · Type Enforcement]:::pydantic
+    A[📥 Inbound Lead<br/>CSV Batch Files / REST API]:::input --> B[1. Pydantic v2 Normalization<br/>Strip Whitespace · Sanitize Email · Type Enforcement]:::pydantic
     
     B --> C[2. Ollama Local LLM granite4.2:3b<br/>JSON Schema Enforced · temp=0 · num_predict=512]:::llm
     
@@ -116,19 +116,19 @@ flowchart TD
   </tr>
   <tr>
     <td width="50%">
-      <h3>🖥️ Built-in Web Demo & Dashboard</h3>
-      <ul>
-        <li>Served directly by FastAPI with zero Node.js/npm dependencies.</li>
-        <li><b>Mode Short:</b> 1-click responsive vertical layout for mobile previews and screen recording demos.</li>
-        <li>Real-time local inference countdown timer and one-click JSON export.</li>
-      </ul>
-    </td>
-    <td width="50%">
       <h3>🔌 Developer-First REST API</h3>
       <ul>
         <li>Fully documented OpenAPI / Swagger schema at <code>/docs</code>.</li>
         <li>Strict error boundaries (422 validation, 502 bad format, 503 unavailable, 504 timeout).</li>
         <li>High test coverage (98 unit tests + live Ollama smoke test).</li>
+      </ul>
+    </td>
+    <td width="50%">
+      <h3>🧪 Deterministic, Auditable Scoring</h3>
+      <ul>
+        <li>Additive rule engine (budget, company size, fit, urgency, intent).</li>
+        <li>Every point awarded ships with a human-readable reason string.</li>
+        <li>Automatic human-review flag when model confidence drops below 0.60.</li>
       </ul>
     </td>
   </tr>
@@ -221,23 +221,7 @@ For high-volume business operations—no browser needed.
 
 ---
 
-### 🖥️ 2. Interactive Web Demo
-
-Ideal for presentations, single lead inspection, or recording video demos:
-
-```powershell
-# Double-click 'Start-Web-Demo.cmd' or run:
-.\.venv\Scripts\python.exe -m uvicorn app.main:app --host 127.0.0.1 --port 8001
-```
-
-1. Open **http://127.0.0.1:8001** in your browser.
-2. Click **"↗ Siap beli"** (Ready to buy) to load a sample lead.
-3. Click **"Analisis lead ↗"** to watch the real-time local model latency timer and live qualification score.
-4. Toggle **`▯ Mode short`** in the top right to switch to a vertical smartphone format for screen recording.
-
----
-
-### 🔌 3. REST API Integration
+### 🔌 2. REST API Integration
 
 Run as a headless microservice for your internal systems:
 
@@ -345,6 +329,9 @@ LeadPilot includes an enterprise-grade test suite with **99 automated tests**:
 .\.venv\Scripts\python.exe smoke_test.py
 ```
 
+> [!NOTE]
+> `app/static/` contains an in-progress web dashboard used for internal testing and demo recordings only. It is not yet wired up to the live API and is not considered a supported feature — it's left out of this README until it's actually connected to the backend.
+
 <br/>
 
 ---
@@ -361,7 +348,7 @@ LeadPilot/
 │   ├── pipeline.py          # Lead triage orchestration
 │   ├── schemas.py           # Pydantic v2 data models
 │   ├── scoring.py           # Deterministic business scoring engine
-│   └── static/              # Zero-dependency HTML5 / CSS3 / Vanilla JS Web UI
+│   └── static/              # (internal/testing only — not yet connected to the API)
 ├── samples/
 │   ├── dummy-leads-50.csv   # 50 synthetic multi-scenario benchmark leads
 │   └── hot-lead.json        # Reference high-priority lead payload
@@ -370,7 +357,6 @@ LeadPilot/
 ├── smoke_test.py            # Live end-to-end model verification script
 ├── Start-LeadPilot.cmd      # 1-Click Windows File Picker Launcher
 ├── Demo-Batch-50.cmd        # 1-Click 50-Lead Benchmark Demo
-├── Start-Web-Demo.cmd       # 1-Click Local Web Dashboard Launcher
 └── requirements.txt         # Core dependencies
 ```
 
