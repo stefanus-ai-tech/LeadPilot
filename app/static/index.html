@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="id">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#101514"><title>LeadPilot — Every lead, a clear next move.</title><link rel="stylesheet" href="/static/style.css"><script src="/static/app.js" defer></script></head>
+<body>
+<div class="shell">
+  <header><a class="brand" href="/" aria-label="LeadPilot home"><span class="brand-icon">↗</span> LeadPilot<span class="brand-dot">.</span></a><div class="header-right"><span class="local"><i></i> LOCAL AI</span><button id="portrait" class="subtle" type="button" aria-pressed="false">▯ Mode short</button></div></header>
+  <main>
+    <section class="intro"><div><div class="eyebrow">LESS SORTING. MORE CLOSING.</div><h1>Lead masuk.<br>Prioritas <em>langsung jelas.</em></h1><p>Ubah pesan calon pelanggan jadi insight yang bisa ditindaklanjuti.</p></div><div class="engine"><span class="engine-symbol">✳</span><div>Powered by local intelligence<small>Granite 4.2 · Data diproses lokal</small></div></div></section>
+    <div class="workflow"><span><b>01</b> Masukkan lead</span><i></i><span><b>02</b> AI memahami</span><i></i><span><b>03</b> Tentukan prioritas</span></div>
+    <div class="workspace">
+      <section class="panel input-panel"><div class="panel-head"><div><span class="eyebrow">INCOMING LEAD</span><h2>Siapa calon klienmu?</h2></div><span class="counter">01 / INPUT</span></div>
+        <div class="samples"><span>Coba contoh</span><button type="button" data-sample="hot">↗ Siap beli</button><button type="button" data-sample="research">⌕ Riset dulu</button><button type="button" data-sample="support">♡ Support</button></div>
+        <form id="lead-form">
+          <div class="form-grid"><label>Nama<input name="name" placeholder="Sarah Miller" required maxlength="200" autocomplete="name"></label><label>Email<input name="email" type="email" placeholder="sarah@company.com" required autocomplete="email"></label><label>Perusahaan <span>opsional</span><input name="company" placeholder="Acme Labs" maxlength="300"></label><label>Jumlah karyawan <span>opsional</span><input name="company_size" type="number" min="1" step="1" placeholder="45"></label><label>Budget <span>IDR · opsional</span><input name="budget" type="number" min="0" step="1" placeholder="5000000"></label><label>Target mulai <span>opsional</span><input name="timeline" placeholder="Minggu depan" maxlength="300"></label></div>
+          <label class="message-label">Pesan calon pelanggan<span id="char-count">0 / 8000</span><textarea name="message" rows="4" minlength="5" maxlength="8000" required placeholder="Ceritakan kebutuhan calon pelanggan di sini…"></textarea></label>
+          <div id="error" role="alert" hidden></div>
+          <button class="analyze" id="analyze" type="submit"><span>Analisis lead</span><span>↗</span></button>
+          <div class="form-foot"><span>✧ Analisis AI + scoring berbasis aturan</span><button type="reset" class="text-button">Reset</button></div>
+        </form>
+      </section>
+      <section class="panel output-panel" aria-live="polite" aria-busy="false" id="output">
+        <div class="panel-head"><div><span class="eyebrow">LEAD INTELLIGENCE</span><h2>From message to momentum.</h2></div><span class="counter">02 / RESULT</span></div>
+        <div id="empty" class="empty"><div class="orbit"><span>✳</span><i class="orbit-dot"></i></div><h3>Your next opportunity starts here.</h3><p>Masukkan lead atau pilih contoh.<br>Biarkan AI membantu menentukan langkah berikutnya.</p><div class="empty-tags"><span>Intent</span><span>Urgency</span><span>Lead score</span></div></div>
+        <div id="loading" class="empty" hidden><div class="orbit spinning"><span>✳</span><i class="orbit-dot"></i></div><h3>Memahami peluangmu<span class="dots">...</span></h3><p>Granite sedang membaca kebutuhan lead.<br>Proses pertama bisa sedikit lebih lama.</p><div class="loading-status"><i></i> Analisis lokal berjalan <span id="elapsed">0s</span></div></div>
+        <div id="result" hidden>
+          <div class="result-top"><div><div class="eyebrow" id="result-name"></div><h3 id="result-title"></h3><span class="tier" id="tier"></span></div><div class="score-circle" id="score-circle"><div><strong id="score">0</strong><span>LEAD SCORE / 100</span></div></div></div>
+          <div class="signals"><div><span>Intent</span><strong id="intent"></strong></div><div><span>Urgency</span><strong id="urgency"></strong></div><div><span>Service fit</span><strong id="fit"></strong></div></div>
+          <div class="summary"><span class="eyebrow">THE BIG PICTURE</span><p id="summary"></p></div>
+          <div class="breakdown"><span class="eyebrow">DI BALIK SKOR</span><ul id="reasons"></ul></div>
+          <div class="next-step"><span>↗</span><div><b>Langkah berikutnya</b><p id="next"></p></div></div>
+          <p id="review" class="review" hidden>Perlu tinjauan manusia — keyakinan model rendah.</p>
+          <div class="result-foot"><span id="duration"></span><button class="text-button" type="button" id="download">↓ Unduh hasil</button></div>
+        </div>
+      </section>
+    </div>
+    <footer><span>BUILT FOR BETTER FIRST MOVES.</span><span>LeadPilot <i> / </i> Local-first lead intelligence</span></footer>
+  </main>
+</div>
+</body></html>

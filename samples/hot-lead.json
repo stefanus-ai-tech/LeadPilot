@@ -1,0 +1,11 @@
+{
+  "name": "Sarah Miller",
+  "email": "sarah@example.com",
+  "company": "Acme Labs",
+  "company_size": 45,
+  "budget": 5000000,
+  "service": "AI automation",
+  "timeline": "Minggu depan",
+  "message": "Kami ingin membeli jasa automation untuk sales. Tolong integrasikan form website ke Google Sheets dan kirim notifikasi lead. Kami mau mulai minggu depan.",
+  "source": "website"
+}

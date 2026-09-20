@@ -1,0 +1,101 @@
+﻿lead_id,name,email,company,company_size,budget,service,timeline,message,source
+DUMMY-011,Putri Lestari,lead011@example.com,Dummy Kuliner 11,45,10000000,AI automation,Minggu depan,"Kami ingin membeli jasa automation form website ke Google Sheets. Budget sudah disetujui. Bisa jadwalkan diskusi? Target mulai minggu depan.
+Perusahaan: Dummy Kuliner 11.",referral
+DUMMY-013,Putri Pratama,lead013@example.com,Dummy Properti 13,45,4000000,Workflow automation,Bulan ini,"Kami tertarik menggunakan jasa integrasi CRM ke notifikasi Telegram. Ingin diskusi ruang lingkup dulu, target implementasi bulan ini.
+Perusahaan: Dummy Properti 13.",linkedin
+DUMMY-031,Nanda Santoso,lead031@example.com,Dummy Travel 31,15,7500000,AI automation,Minggu depan,"Kami ingin membeli jasa automation CRM ke notifikasi Telegram. Budget sudah disetujui. Bisa jadwalkan diskusi? Target mulai minggu depan.
+Perusahaan: Dummy Travel 31.",referral
+DUMMY-046,Farah Santoso,lead046@example.com,Dummy Digital 46,80,0,LLM integration,,"How does a local AI assistant work? We are exploring options for our internal team. No approved budget or launch date yet.
+Perusahaan: Dummy Digital 46.",linkedin
+DUMMY-029,Raka Utami,lead029@example.com,Dummy Digital 29,25,,,,"PROMO! Kami menjual paket backlink dan followers murah. Hubungi kami untuk membeli paket promosi, bukan mencari jasa Anda.
+Perusahaan: Dummy Digital 29.",event
+DUMMY-034,Intan Kusuma,lead034@example.com,Dummy Digital 34,250,500000,Python automation,Tiga bulan lagi,"Boleh minta penawaran untuk CRM ke notifikasi Telegram? Dana kami terbatas. Rencana mulai tiga bulan lagi dan masih membandingkan vendor.
+Perusahaan: Dummy Digital 34.",email
+DUMMY-012,Farah Santoso,lead012@example.com,Dummy Tekstil 12,45,12000000,API integration,Minggu ini,"We need to integrate form website ke Google Sheets. We are ready to book a project discussion and start this week. Please send a proposal.
+Perusahaan: Dummy Tekstil 12.",linkedin
+DUMMY-028,Kirana Permata,lead028@example.com,Dummy Studio 28,80,5000000,Desain logo,Minggu depan,"Kami ingin memesan desain logo dan kemasan produk. Mulai minggu depan. Apakah menerima jasa desain grafis? Tidak butuh automation.
+Perusahaan: Dummy Studio 28.",referral
+DUMMY-033,Maya Kusuma,lead033@example.com,Dummy Distribusi 33,8,2000000,Workflow automation,Bulan ini,"Kami tertarik menggunakan jasa integrasi email inquiry ke database lead. Ingin diskusi ruang lingkup dulu, target implementasi bulan ini.
+Perusahaan: Dummy Distribusi 33.",email
+DUMMY-037,Citra Saputra,lead037@example.com,Dummy Tekstil 37,3,,Workflow automation,Hari ini,"Kami pelanggan lama. Workflow form website ke Google Sheets error sejak pagi. Tolong bantu perbaiki koneksinya hari ini, bukan permintaan proyek baru.
+Perusahaan: Dummy Tekstil 37.",website
+DUMMY-047,Aditya Pratama,lead047@example.com,Dummy Retail 47,8,,Workflow automation,Hari ini,"Kami pelanggan lama. Workflow invoice ke rekap administrasi error sejak pagi. Tolong bantu perbaiki koneksinya hari ini, bukan permintaan proyek baru.
+Perusahaan: Dummy Retail 47.",linkedin
+DUMMY-032,Galih Lestari,lead032@example.com,Dummy Travel 32,,12000000,API integration,Minggu ini,"We need to integrate invoice ke rekap administrasi. We are ready to book a project discussion and start this week. Please send a proposal.
+Perusahaan: Dummy Travel 32.",linkedin
+DUMMY-004,Maya Santoso,lead004@example.com,Dummy Studio 04,250,1500000,Python automation,Tiga bulan lagi,"Boleh minta penawaran untuk CRM ke notifikasi Telegram? Dana kami terbatas. Rencana mulai tiga bulan lagi dan masih membandingkan vendor.
+Perusahaan: Dummy Studio 04.",event
+DUMMY-020,Galih Permata,lead020@example.com,Dummy Logistik 20,8,,,,"Halo, saya dapat kontak dari teman. Bisa kirim informasi layanan? Saya belum menjelaskan kebutuhan atau rencana pembelian.
+Perusahaan: Dummy Logistik 20.",linkedin
+DUMMY-043,Nanda Utami,lead043@example.com,Dummy Studio 43,250,4000000,Workflow automation,Bulan ini,"Kami tertarik menggunakan jasa integrasi form website ke Google Sheets. Ingin diskusi ruang lingkup dulu, target implementasi bulan ini.
+Perusahaan: Dummy Studio 43.",event
+DUMMY-036,Farah Lestari,lead036@example.com,Dummy Tekstil 36,3,0,LLM integration,,"How does a local AI assistant work? We are exploring options for our internal team. No approved budget or launch date yet.
+Perusahaan: Dummy Tekstil 36.",linkedin
+DUMMY-006,Galih Pratama,lead006@example.com,Dummy Distribusi 06,15,0,LLM integration,,"How does a local AI assistant work? We are exploring options for our internal team. No approved budget or launch date yet.
+Perusahaan: Dummy Distribusi 06.",linkedin
+DUMMY-030,Hana Pratama,lead030@example.com,Dummy Properti 30,250,,,,"Halo, saya dapat kontak dari teman. Bisa kirim informasi layanan? Saya belum menjelaskan kebutuhan atau rencana pembelian.
+Perusahaan: Dummy Properti 30.",linkedin
+DUMMY-038,Damar Lestari,lead038@example.com,Dummy Studio 38,25,2000000,Desain logo,Minggu depan,"Kami ingin memesan desain logo dan kemasan produk. Mulai minggu depan. Apakah menerima jasa desain grafis? Tidak butuh automation.
+Perusahaan: Dummy Studio 38.",website
+DUMMY-027,Joko Kusuma,lead027@example.com,Dummy Edukasi 27,80,,Workflow automation,Hari ini,"Kami pelanggan lama. Workflow email inquiry ke database lead error sejak pagi. Tolong bantu perbaiki koneksinya hari ini, bukan permintaan proyek baru.
+Perusahaan: Dummy Edukasi 27.",email
+DUMMY-025,Laras Saputra,lead025@example.com,Dummy Distribusi 25,45,,AI automation,Belum ada target,"Sedang riset cara kerja order toko ke laporan penjualan. Ada contoh studi kasus? Belum ada keputusan membeli, masih mengumpulkan informasi.
+Perusahaan: Dummy Distribusi 25.",referral
+DUMMY-024,Joko Pratama,lead024@example.com,Dummy Kuliner 24,250,1500000,Python automation,Tiga bulan lagi,"Boleh minta penawaran untuk order toko ke laporan penjualan? Dana kami terbatas. Rencana mulai tiga bulan lagi dan masih membandingkan vendor.
+Perusahaan: Dummy Kuliner 24.",event
+DUMMY-021,Damar Pratama,lead021@example.com,Dummy Retail 21,,7500000,AI automation,Minggu depan,"Kami ingin membeli jasa automation order toko ke laporan penjualan. Budget sudah disetujui. Bisa jadwalkan diskusi? Target mulai minggu depan.
+Perusahaan: Dummy Retail 21.",linkedin
+DUMMY-042,Sari Pratama,lead042@example.com,Dummy Studio 42,25,15000000,API integration,Minggu ini,"We need to integrate invoice ke rekap administrasi. We are ready to book a project discussion and start this week. Please send a proposal.
+Perusahaan: Dummy Studio 42.",email
+DUMMY-045,Intan Utami,lead045@example.com,Dummy Properti 45,45,,AI automation,Belum ada target,"Sedang riset cara kerja form website ke Google Sheets. Ada contoh studi kasus? Belum ada keputusan membeli, masih mengumpulkan informasi.
+Perusahaan: Dummy Properti 45.",website
+DUMMY-005,Putri Kusuma,lead005@example.com,Dummy Digital 05,250,,AI automation,Belum ada target,"Sedang riset cara kerja invoice ke rekap administrasi. Ada contoh studi kasus? Belum ada keputusan membeli, masih mengumpulkan informasi.
+Perusahaan: Dummy Digital 05.",email
+DUMMY-007,Wulan Lestari,lead007@example.com,Dummy Digital 07,45,,Workflow automation,Hari ini,"Kami pelanggan lama. Workflow CRM ke notifikasi Telegram error sejak pagi. Tolong bantu perbaiki koneksinya hari ini, bukan permintaan proyek baru.
+Perusahaan: Dummy Digital 07.",referral
+DUMMY-017,Bella Santoso,lead017@example.com,Dummy Tekstil 17,45,,Workflow automation,Hari ini,"Kami pelanggan lama. Workflow invoice ke rekap administrasi error sejak pagi. Tolong bantu perbaiki koneksinya hari ini, bukan permintaan proyek baru.
+Perusahaan: Dummy Tekstil 17.",event
+DUMMY-009,Bella Lestari,lead009@example.com,Dummy Properti 09,250,,,,"PROMO! Kami menjual paket backlink dan followers murah. Hubungi kami untuk membeli paket promosi, bukan mencari jasa Anda.
+Perusahaan: Dummy Properti 09.",event
+DUMMY-015,Raka Lestari,lead015@example.com,Dummy Logistik 15,25,,AI automation,Belum ada target,"Sedang riset cara kerja CRM ke notifikasi Telegram. Ada contoh studi kasus? Belum ada keputusan membeli, masih mengumpulkan informasi.
+Perusahaan: Dummy Logistik 15.",email
+DUMMY-001,Intan Wijaya,lead001@example.com,Dummy Distribusi 01,250,7500000,AI automation,Minggu depan,"Kami ingin membeli jasa automation order toko ke laporan penjualan. Budget sudah disetujui. Bisa jadwalkan diskusi? Target mulai minggu depan.
+Perusahaan: Dummy Distribusi 01.",referral
+DUMMY-035,Damar Pratama,lead035@example.com,Dummy Tekstil 35,15,,AI automation,Belum ada target,"Sedang riset cara kerja CRM ke notifikasi Telegram. Ada contoh studi kasus? Belum ada keputusan membeli, masih mengumpulkan informasi.
+Perusahaan: Dummy Tekstil 35.",website
+DUMMY-044,Galih Santoso,lead044@example.com,Dummy Travel 44,45,1500000,Python automation,Tiga bulan lagi,"Boleh minta penawaran untuk CRM ke notifikasi Telegram? Dana kami terbatas. Rencana mulai tiga bulan lagi dan masih membandingkan vendor.
+Perusahaan: Dummy Travel 44.",referral
+DUMMY-048,Bella Utami,lead048@example.com,Dummy Tekstil 48,45,2000000,Desain logo,Minggu depan,"Kami ingin memesan desain logo dan kemasan produk. Mulai minggu depan. Apakah menerima jasa desain grafis? Tidak butuh automation.
+Perusahaan: Dummy Tekstil 48.",email
+DUMMY-023,Citra Kusuma,lead023@example.com,Dummy Distribusi 23,45,4000000,Workflow automation,Bulan ini,"Kami tertarik menggunakan jasa integrasi form website ke Google Sheets. Ingin diskusi ruang lingkup dulu, target implementasi bulan ini.
+Perusahaan: Dummy Distribusi 23.",website
+DUMMY-049,Laras Saputra,lead049@example.com,Dummy Digital 49,250,,,,"PROMO! Kami menjual paket backlink dan followers murah. Hubungi kami untuk membeli paket promosi, bukan mencari jasa Anda.
+Perusahaan: Dummy Digital 49.",email
+DUMMY-014,Citra Lestari,lead014@example.com,Dummy Properti 14,150,1000000,Python automation,Tiga bulan lagi,"Boleh minta penawaran untuk order toko ke laporan penjualan? Dana kami terbatas. Rencana mulai tiga bulan lagi dan masih membandingkan vendor.
+Perusahaan: Dummy Properti 14.",email
+DUMMY-019,Wulan Permata,lead019@example.com,Dummy Logistik 19,25,,,,"PROMO! Kami menjual paket backlink dan followers murah. Hubungi kami untuk membeli paket promosi, bukan mencari jasa Anda.
+Perusahaan: Dummy Logistik 19.",email
+DUMMY-040,Eka Kusuma,lead040@example.com,Dummy Kuliner 40,15,,,,"Halo, saya dapat kontak dari teman. Bisa kirim informasi layanan? Saya belum menjelaskan kebutuhan atau rencana pembelian.
+Perusahaan: Dummy Kuliner 40.",email
+DUMMY-050,Wulan Kusuma,lead050@example.com,Dummy Retail 50,8,,,,"Halo, saya dapat kontak dari teman. Bisa kirim informasi layanan? Saya belum menjelaskan kebutuhan atau rencana pembelian.
+Perusahaan: Dummy Retail 50.",linkedin
+DUMMY-010,Oki Lestari,lead010@example.com,Dummy Edukasi 10,250,,,,"Halo, saya dapat kontak dari teman. Bisa kirim informasi layanan? Saya belum menjelaskan kebutuhan atau rencana pembelian.
+Perusahaan: Dummy Edukasi 10.",linkedin
+DUMMY-002,Laras Pratama,lead002@example.com,Dummy Tekstil 02,15,15000000,API integration,Minggu ini,"We need to integrate order toko ke laporan penjualan. We are ready to book a project discussion and start this week. Please send a proposal.
+Perusahaan: Dummy Tekstil 02.",linkedin
+DUMMY-039,Joko Wijaya,lead039@example.com,Dummy Kuliner 39,,,,,"PROMO! Kami menjual paket backlink dan followers murah. Hubungi kami untuk membeli paket promosi, bukan mencari jasa Anda.
+Perusahaan: Dummy Kuliner 39.",event
+DUMMY-022,Galih Santoso,lead022@example.com,Dummy Distribusi 22,25,15000000,API integration,Minggu ini,"We need to integrate CRM ke notifikasi Telegram. We are ready to book a project discussion and start this week. Please send a proposal.
+Perusahaan: Dummy Distribusi 22.",email
+DUMMY-018,Citra Kusuma,lead018@example.com,Dummy Retail 18,8,2000000,Desain logo,Minggu depan,"Kami ingin memesan desain logo dan kemasan produk. Mulai minggu depan. Apakah menerima jasa desain grafis? Tidak butuh automation.
+Perusahaan: Dummy Retail 18.",linkedin
+DUMMY-003,Maya Lestari,lead003@example.com,Dummy Tekstil 03,8,2000000,Workflow automation,Bulan ini,"Kami tertarik menggunakan jasa integrasi order toko ke laporan penjualan. Ingin diskusi ruang lingkup dulu, target implementasi bulan ini.
+Perusahaan: Dummy Tekstil 03.",email
+DUMMY-026,Damar Lestari,lead026@example.com,Dummy Tekstil 26,25,0,LLM integration,,"How does a local AI assistant work? We are exploring options for our internal team. No approved budget or launch date yet.
+Perusahaan: Dummy Tekstil 26.",referral
+DUMMY-041,Raka Wijaya,lead041@example.com,Dummy Properti 41,45,5000000,AI automation,Minggu depan,"Kami ingin membeli jasa automation invoice ke rekap administrasi. Budget sudah disetujui. Bisa jadwalkan diskusi? Target mulai minggu depan.
+Perusahaan: Dummy Properti 41.",referral
+DUMMY-008,Joko Saputra,lead008@example.com,Dummy Kuliner 08,25,2000000,Desain logo,Minggu depan,"Kami ingin memesan desain logo dan kemasan produk. Mulai minggu depan. Apakah menerima jasa desain grafis? Tidak butuh automation.
+Perusahaan: Dummy Kuliner 08.",linkedin
+DUMMY-016,Laras Wijaya,lead016@example.com,Dummy Properti 16,3,0,LLM integration,,"How does a local AI assistant work? We are exploring options for our internal team. No approved budget or launch date yet.
+Perusahaan: Dummy Properti 16.",event
