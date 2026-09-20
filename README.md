@@ -12,7 +12,7 @@
 [![FastAPI](https://img.shields.io/badge/FastAPI-0.115%2B-009688?style=for-the-badge&logo=fastapi&logoColor=white)](https://fastapi.tiangolo.com/)
 [![Pydantic v2](https://img.shields.io/badge/Pydantic-v2-E92063?style=for-the-badge&logo=pydantic&logoColor=white)](https://docs.pydantic.dev/)
 [![Ollama](https://img.shields.io/badge/Ollama-Granite_4.2_3B-000000?style=for-the-badge&logo=ollama&logoColor=white)](https://ollama.com/)
-[![Tests Passing](https://img.shields.io/badge/Tests-98%20Passed-2EA44F?style=for-the-badge&logo=githubactions&logoColor=white)]()
+[![Tests Passing](https://img.shields.io/badge/Tests-99%20Passed-2EA44F?style=for-the-badge&logo=githubactions&logoColor=white)]()
 
 <br/>
 
@@ -317,15 +317,17 @@ Run as a headless microservice for your internal systems:
 | `source` | String | No | Lead origin (defaults to `csv`) |
 | *custom columns* | Any | No | Any extra metadata (e.g. `lead_id`) is safely preserved in output |
 
-### Output CSV Structure (`results.csv`)
-Results are written with **UTF-8 BOM** for seamless Microsoft Excel rendering:
+### Output Files Structure
 
-- `lp_row` & `lp_status`: Row index and execution state (`ok`, `error`, `pending`).
-- `lp_intent`, `lp_urgency`, `lp_category`: Granular LLM semantic classifications.
-- `lp_service_match` & `lp_confidence`: Binary fit indicator and self-reported confidence.
-- `lp_score` & `lp_tier`: Deterministic integer score (0-100) and tier (`HOT`, `WARM`, `COLD`).
-- `lp_requires_human_review`: Quality assurance alert flag.
-- `lp_reasons`: Human-readable audit log of score components.
+Each batch run generates an isolated output folder containing both spreadsheet and audit outputs:
+
+1. **`results.xlsx` (Executive-Ready Formatted Excel)**:
+   - **Executive Summary Sheet:** KPI metric cards (`Total Leads`, `HOT Leads`, `Flagged for Review`, `Avg Score`) using dynamic native Excel formulas (`COUNTA`, `COUNTIF`, `AVERAGE`).
+   - **Lead Triage Sheet:** Professional Segoe UI typography, dark slate headers, freeze panes, auto-filter, currency formatting (`Rp #,##0`), percentage formatting (`0.0%`), and soft color-coded badges for Tiers (`HOT`, `WARM`, `COLD`) and Intents (`Purchase`, `Research`, `Support`, `Spam`).
+   - **Errors Sheet:** Clean breakdown of any rows failing input validation.
+2. **`results.csv`**: Raw flat export with UTF-8 BOM and formula injection protection.
+3. **`errors.csv`**: CSV listing only failed records and reason strings.
+4. **`checkpoint.json`**: Atomic state tracking per row index for resilient resume capability.
 
 <br/>
 
@@ -333,10 +335,10 @@ Results are written with **UTF-8 BOM** for seamless Microsoft Excel rendering:
 
 ## 🧪 Testing Suite
 
-LeadPilot includes an enterprise-grade test suite with **98 automated tests**:
+LeadPilot includes an enterprise-grade test suite with **99 automated tests**:
 
 ```powershell
-# Run unit tests (Mocked LLM, runs in ~1.2s without GPU)
+# Run unit tests (Mocked LLM & Excel exporter, runs in ~1.5s)
 .\.venv\Scripts\python.exe -m pytest -q
 
 # Run live end-to-end integration smoke test with real Ollama model
@@ -353,6 +355,7 @@ LeadPilot includes an enterprise-grade test suite with **98 automated tests**:
 LeadPilot/
 ├── app/
 │   ├── batch.py             # CSV engine, atomic checkpointing, Excel sanitization
+│   ├── excel.py             # Executive-ready styled Excel exporter (openpyxl)
 │   ├── llm.py               # Ollama client, JSON Schema validation, prompt templates
 │   ├── main.py              # FastAPI endpoints & static dashboard mount
 │   ├── pipeline.py          # Lead triage orchestration
@@ -362,7 +365,7 @@ LeadPilot/
 ├── samples/
 │   ├── dummy-leads-50.csv   # 50 synthetic multi-scenario benchmark leads
 │   └── hot-lead.json        # Reference high-priority lead payload
-├── tests/                   # 98 unit and integration test fixtures
+├── tests/                   # 99 unit and integration test fixtures
 ├── batch_process.py         # Batch runner CLI with native Tkinter file picker
 ├── smoke_test.py            # Live end-to-end model verification script
 ├── Start-LeadPilot.cmd      # 1-Click Windows File Picker Launcher

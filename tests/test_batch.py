@@ -112,3 +112,46 @@ def test_bad_headers_fail_before_processing(tmp_path, text):
 def test_wrong_column_count_is_row_error():
     with pytest.raises(ValueError):
         parse_row({"name": "A", "email": "a@example.com", "message": None})
+
+
+def test_excel_export_creates_styled_sheets(tmp_path, lead_data, analysis):
+    import openpyxl
+    source = tmp_path / "input.csv"
+    write_input(source, [
+        lead_data | {"name": "Alice", "budget": "10000000", "company": '=HYPERLINK("bad")'},
+        lead_data | {"name": "Bob", "budget": "invalid"},
+    ])
+    analyze = runner(analysis)
+    destination, counts = process_csv(source, tmp_path / "out", analyze=analyze)
+    assert counts["ok"] == 1
+    assert counts["error"] == 1
+
+    xlsx_path = destination / "results.xlsx"
+    assert xlsx_path.exists()
+
+    wb = openpyxl.load_workbook(xlsx_path, data_only=False)
+    assert "Executive Summary" in wb.sheetnames
+    assert "Lead Triage" in wb.sheetnames
+    assert "Errors & Exceptions" in wb.sheetnames
+
+    # Check Executive summary title & formulas
+    ws_sum = wb["Executive Summary"]
+    assert "LeadPilot" in str(ws_sum["B2"].value)
+    assert ws_sum["C6"].value == "=COUNTA('Lead Triage'!A2:A3)"
+
+    # Check Lead Triage sheet formatting
+    ws_data = wb["Lead Triage"]
+    assert ws_data["A1"].value == "name"
+    assert ws_data["A2"].value == "Alice"
+    company_col_idx = [col for col in range(1, ws_data.max_column + 1) if ws_data.cell(row=1, column=col).value == "company"][0]
+    assert str(ws_data.cell(row=2, column=company_col_idx).value).startswith("'=")
+    # Numeric formatting on budget
+    budget_col_idx = [col for col in range(1, ws_data.max_column + 1) if ws_data.cell(row=1, column=col).value == "budget"][0]
+    assert ws_data.cell(row=2, column=budget_col_idx).value == 10000000
+    assert ws_data.cell(row=2, column=budget_col_idx).number_format == '"Rp" #,##0'
+
+    # Check Errors sheet
+    ws_err = wb["Errors & Exceptions"]
+    assert ws_err["A2"].value == 2
+    assert "budget" in ws_err["B2"].value
+

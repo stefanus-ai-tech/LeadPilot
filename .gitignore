@@ -4,3 +4,7 @@ __pycache__/
 .env
 smoke-result.json
 batch_output/
+batch_test_out/dummy-leads-50-48f6fafa867495f5/errors.csv
+batch_test_out/dummy-leads-50-48f6fafa867495f5/results.csv
+batch_test_out/dummy-leads-50-48f6fafa867495f5/results.xlsx
+batch_test_out/dummy-leads-50-48f6fafa867495f5/run.lock

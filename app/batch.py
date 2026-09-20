@@ -9,6 +9,7 @@ from typing import Callable
 
 from pydantic import ValidationError
 
+from app.excel import export_excel
 from app.llm import LLMError, MODEL_NAME
 from app.pipeline import triage_lead
 from app.schemas import LeadInput
@@ -92,7 +93,7 @@ def process_csv(source: Path, output_root: Path, *, limit: int | None = None,
     raw, headers, rows = load_csv(source)
     # Invalidate old results when input, pipeline code, model or host changes.
     signature = raw + MODEL_NAME.encode() + os.getenv("OLLAMA_HOST", "local").encode()
-    for filename in ("batch.py", "llm.py", "schemas.py", "scoring.py", "pipeline.py", "validation.py"):
+    for filename in ("batch.py", "excel.py", "llm.py", "schemas.py", "scoring.py", "pipeline.py", "validation.py"):
         signature += (Path(__file__).parent / filename).read_bytes()
     digest = hashlib.sha256(signature).hexdigest()[:16]
     destination = output_root.resolve() / f"{source.stem}-{digest}"
@@ -112,6 +113,7 @@ def process_csv(source: Path, output_root: Path, *, limit: int | None = None,
         def export():
             export_csv(destination / "results.csv", headers, rows, state)
             export_csv(destination / "errors.csv", headers, rows, state, errors_only=True)
+            export_excel(destination / "results.xlsx", headers, rows, state)
         export()
         for index, row in enumerate(rows, 1):
             if state.get(str(index), {}).get("lp_status") == "ok":
