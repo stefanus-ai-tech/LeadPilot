@@ -30,6 +30,7 @@ def test_structured_request_and_parsing(monkeypatch, lead, analysis_data):
     assert args["model"] == "granite4.2:3b"
     assert args["format"] == LeadAnalysis.model_json_schema()
     assert args["options"]["temperature"] == 0
+    assert args["options"]["think"] is False
     assert args["think"] is False
     assert args["stream"] is False
     assert json.loads(args["messages"][1]["content"].split("\n", 1)[1]) == lead.model_dump()
