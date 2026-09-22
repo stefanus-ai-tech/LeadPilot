@@ -30,7 +30,7 @@ function render(result,seconds){
   for(const reason of s.reasons){const li=document.createElement('li'),label=document.createElement('span'),points=document.createElement('b');const match=reason.match(/^(.*?) \(\+(\d+)\)$/);label.textContent=match?(labels[match[1]]||match[1]):reason;points.textContent=match?`+${match[2]}`:'';li.append(label,points);$('reasons').append(li);}
   if(!s.reasons.length){const li=document.createElement('li');li.textContent='Belum ada sinyal yang menambah skor.';$('reasons').append(li);}
   text('next',a.intent==='support'?'Arahkan ke bantuan pelanggan dan cek kendala yang dilaporkan.':a.intent==='spam'?'Tinjau relevansi pesan sebelum melakukan follow-up.':s.requires_human_review?'Baca ulang pesan dan konfirmasi kebutuhan sebelum menindaklanjuti.':s.tier==='HOT'?'Hubungi calon klien dan jadwalkan diskusi kebutuhan.':s.tier==='WARM'?'Kirim contoh solusi, lalu konfirmasi budget dan timeline.':'Kirim informasi awal dan gali kebutuhan lebih lanjut.');
-  $('review').hidden=!s.requires_human_review;text('duration',`Granite 4.2 · ${seconds}s · Diproses lokal`);
+  $('review').hidden=!s.requires_human_review;text('duration',`Laya · ${seconds}s · Diproses lokal`);
   $('loading').hidden=true;$('result').hidden=false;
 }
 form.addEventListener('submit',async(event)=>{
@@ -44,10 +44,10 @@ form.addEventListener('submit',async(event)=>{
   try{
     const response=await fetch('/triage',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload),signal:controller.signal});
     const result=await response.json();
-    if(!response.ok){const messages={422:'Cek kembali data lead. Nama, email, dan pesan minimal 5 karakter wajib diisi.',502:'Output AI belum valid. Coba analisis sekali lagi.',503:'Ollama belum siap. Pastikan Ollama aktif dan model granite4.2:3b tersedia.',504:'Analisis terlalu lama. Coba lagi setelah model selesai dimuat.'};throw new Error(messages[response.status]||'Analisis gagal. Coba lagi.');}
+    if(!response.ok){const messages={422:'Cek kembali data lead. Nama, email, dan pesan minimal 5 karakter wajib diisi.',502:'Output AI belum valid. Coba analisis sekali lagi.',503:'Laya belum siap. Pastikan paket dan checkpoint Laya tersedia.',504:'Analisis terlalu lama. Coba lagi setelah model selesai dimuat.'};throw new Error(messages[response.status]||'Analisis gagal. Coba lagi.');}
     lastResult=result;render(result,((performance.now()-start)/1000).toFixed(1));
     if(document.body.classList.contains('portrait')||innerWidth<721)$('output').scrollIntoView({behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'instant':'smooth',block:'start'});
-  }catch(error){$('loading').hidden=true;$('empty').hidden=false;text('error',error.name==='AbortError'?'Waktu tunggu habis. Coba lagi setelah Ollama siap.':error instanceof TypeError?'Koneksi ke LeadPilot terputus. Pastikan server masih berjalan.':error.message);$('error').hidden=false;}
+  }catch(error){$('loading').hidden=true;$('empty').hidden=false;text('error',error.name==='AbortError'?'Waktu tunggu habis. Coba lagi setelah Laya siap.':error instanceof TypeError?'Koneksi ke LeadPilot terputus. Pastikan server masih berjalan.':error.message);$('error').hidden=false;}
   finally{clearInterval(timer);clearTimeout(timeout);busy=false;controls.forEach(el=>el.disabled=false);$('output').setAttribute('aria-busy','false');}
 });
 $('download').addEventListener('click',()=>{if(!lastResult)return;const url=URL.createObjectURL(new Blob([JSON.stringify(lastResult,null,2)],{type:'application/json'}));const link=document.createElement('a');link.href=url;link.download='leadpilot-result.json';link.click();setTimeout(()=>URL.revokeObjectURL(url),1000);});

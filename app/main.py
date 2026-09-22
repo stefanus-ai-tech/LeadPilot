@@ -19,7 +19,7 @@ def dashboard():
 
 @app.get("/health")
 def health() -> dict[str, str]:
-    """Application liveness only; does not load or query Ollama."""
+    """Application liveness only; does not load or query Laya."""
     return {"status": "ok"}
 
 

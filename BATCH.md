@@ -2,14 +2,14 @@
 
 ## Mulai paling cepat
 
-1. Pastikan Ollama berjalan dan `granite4.2:3b` tersedia.
+1. Instal dependensi di `requirements.txt`. Laya mengunduh checkpoint saat analisis pertama, lalu memakai cache lokal.
 2. Klik dua kali `Demo-Batch-50.cmd` untuk mencoba 50 lead dummy.
 3. Tunggu progres `[1/50]` sampai selesai di terminal.
 4. Buka `batch_output`, lalu subfolder yang disebutkan terminal, kemudian `results.csv`.
 
 Tidak perlu menyalakan FastAPI atau membuka browser. Python memanggil model
-Ollama langsung. File dipilih dari komputer dan tidak diunggah ke layanan cloud
-dengan konfigurasi Ollama lokal bawaan.
+Laya langsung. File dipilih dari komputer. Setelah checkpoint tersedia, analisis
+berjalan lokal; unduhan checkpoint pertama memerlukan internet.
 
 ## Data perusahaan sendiri
 
@@ -74,7 +74,8 @@ mengunci file saat diperbarui.
 Untuk review sales, filter `lp_status=ok`, periksa `lp_intent`, lalu urutkan
 `lp_score` dari terbesar. Skor masih mengikuti aturan penjumlahan semula:
 support/spam bisa mendapat poin dari sinyal lain. Tinjau intent dan
-`lp_requires_human_review` sebelum follow-up; confidence model tidak terkalibrasi.
+`lp_requires_human_review` sebelum follow-up; confidence model perlu divalidasi
+untuk data lead sendiri.
 
 ## Berhenti dan lanjut
 

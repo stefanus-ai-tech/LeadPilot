@@ -1,5 +1,19 @@
 # Validation status - 2026-09-20
 
+## Laya migration - 2026-09-23
+
+- Granite/Ollama integration was replaced with Laya typed decisions. The original
+  API response shape and deterministic scoring remain.
+- 92 unit tests pass with Laya mocked. `pip check` reports no broken requirements.
+- Live FastAPI smoke test passes with Laya's multilingual checkpoint: the Indonesian
+  sample returns purchase/high, service match, score 100, and HOT.
+- Laya's router classified a mixed Indonesian/English message as English, so the
+  adapter now gives clearly Indonesian messages an explicit language hint.
+- The local model output on one sample does not establish general classification
+  accuracy or calibrated confidence for this sales dataset.
+- The notes below describe the previous Granite version and are retained as
+  historical validation evidence.
+
 Project location: `C:\Users\DELL\Documents\LocalLLM\LeadPilot\LeadPilot`.
 
 - Created a local Python 3.11 virtual environment in `.venv` and installed all requirements. `pip check` reports no broken requirements.

@@ -1,65 +1,86 @@
-import json
-from types import SimpleNamespace
 from unittest.mock import Mock
 
-import httpx
 import pytest
-from ollama import ResponseError
 
-from app.llm import analyze_lead, LLMOutputError, LLMTimeoutError, LLMUnavailableError
-from app.schemas import LeadAnalysis
+from app.llm import analyze_lead, LLMOutputError, LLMTimeoutError, LLMUnavailableError, QUESTIONS
 
 
-def mock_client(monkeypatch, *, content=None, error=None):
-    client = Mock()
-    client.chat.side_effect = error
-    client.chat.return_value = SimpleNamespace(message=SimpleNamespace(content=content))
-    factory = Mock(return_value=client)
-    monkeypatch.setattr("app.llm.Client", factory)
-    return factory, client
+def response(**changes):
+    answers = {
+        "intent": {"choice": "purchase", "confidence": 0.92},
+        "urgency": {"choice": "high", "confidence": 0.84},
+        "category": {"choice": "workflow automation", "confidence": 0.88},
+        "service_match": {"noul": 0.9},
+        "strong_intent": {"noul": 0.8},
+        "clear_requirement": {"noul": 0.7},
+        "budget_mentioned": {"noul": 0.2},
+    }
+    answers.update(changes)
+    return {"answers": answers}
 
 
-def test_structured_request_and_parsing(monkeypatch, lead, analysis_data):
-    monkeypatch.setenv("OLLAMA_HOST", "http://localhost:11434")
-    monkeypatch.setenv("OLLAMA_TIMEOUT_SECONDS", "45")
-    factory, client = mock_client(monkeypatch, content=json.dumps(analysis_data))
+def test_laya_decisions_map_to_analysis(monkeypatch, lead):
+    router = Mock()
+    router.predict.return_value = response()
+    monkeypatch.setattr("app.llm._router", Mock(return_value=router))
     result = analyze_lead(lead)
-    assert result == LeadAnalysis(**analysis_data)
-    factory.assert_called_once_with(host="http://localhost:11434", timeout=45.0)
-    args = client.chat.call_args.kwargs
-    assert args["model"] == "granite4.2:3b"
-    assert args["format"] == LeadAnalysis.model_json_schema()
-    assert args["options"]["temperature"] == 0
-    assert args["options"]["think"] is False
-    assert args["think"] is False
-    assert args["stream"] is False
-    assert json.loads(args["messages"][1]["content"].split("\n", 1)[1]) == lead.model_dump()
+    state, questions = router.predict.call_args.args
+    assert state == {"service": "", "timeline": "", "message": lead.message}
+    assert questions == QUESTIONS
+    assert result.intent == "purchase"
+    assert result.urgency == "high"
+    assert result.service_match is True
+    assert result.budget_mentioned is False
+    assert result.summary == lead.message
+    assert result.confidence == 0.84
 
 
-@pytest.mark.parametrize("content", ["not json", "", None, "{}", '```json\n{}\n```', "[]"])
-def test_malformed_output(monkeypatch, lead, content):
-    mock_client(monkeypatch, content=content)
-    with pytest.raises(LLMOutputError):
-        analyze_lead(lead)
+def test_explicit_zero_budget_counts(monkeypatch, lead):
+    router = Mock()
+    router.predict.return_value = response()
+    monkeypatch.setattr("app.llm._router", Mock(return_value=router))
+    result = analyze_lead(lead.model_copy(update={"budget": 0}))
+    assert result.budget_mentioned is True
+    assert router.predict.call_args.args[0]["budget"] == 0
 
 
-@pytest.mark.parametrize("change", [{"confidence": 1.1}, {"confidence": -0.1}, {"confidence": float("nan")},
-    {"intent": "buy"}, {"urgency": "urgent"}, {"service_match": "false"},
-    {"summary": "  "}, {"score": 100}])
-def test_invalid_schema(monkeypatch, lead, analysis_data, change):
-    mock_client(monkeypatch, content=json.dumps(analysis_data | change))
+def test_explicit_indonesian_timeframe_overrides_model(monkeypatch, lead):
+    router = Mock()
+    router.predict.return_value = response(urgency={"choice": "medium", "confidence": 0.8})
+    monkeypatch.setattr("app.llm._router", Mock(return_value=router))
+    assert analyze_lead(lead.model_copy(update={"timeline": "Minggu depan"})).urgency == "high"
+
+
+def test_indonesian_lead_uses_multilingual_checkpoint(monkeypatch, lead):
+    router = Mock()
+    router.predict.return_value = response()
+    monkeypatch.setattr("app.llm._router", Mock(return_value=router))
+    analyze_lead(lead.model_copy(update={"message": "Kami ingin membeli jasa automation."}))
+    assert router.predict.call_args.kwargs == {"lang": "id"}
+
+
+@pytest.mark.parametrize("change", [
+    {"intent": {"choice": "buy", "confidence": 0.9}},
+    {"intent": {"choice": "purchase", "confidence": float("nan")}},
+    {"intent": {"choice": "purchase", "confidence": 1.2}},
+    {"service_match": {"noul": "true"}},
+    {"urgency": {}},
+])
+def test_bad_decision_is_rejected(monkeypatch, lead, change):
+    router = Mock()
+    router.predict.return_value = response(**change)
+    monkeypatch.setattr("app.llm._router", Mock(return_value=router))
     with pytest.raises(LLMOutputError):
         analyze_lead(lead)
 
 
 @pytest.mark.parametrize("error,expected", [
-    (httpx.ReadTimeout("private text"), LLMTimeoutError),
-    (httpx.ConnectError("private text"), LLMUnavailableError),
-    (ConnectionError("private text"), LLMUnavailableError),
-    (ResponseError("private text", status_code=404), LLMUnavailableError),
+    (ImportError("private"), LLMUnavailableError),
+    (OSError("private"), LLMUnavailableError),
+    (TimeoutError("private"), LLMTimeoutError),
 ])
-def test_upstream_errors(monkeypatch, lead, error, expected):
-    mock_client(monkeypatch, error=error)
+def test_safe_upstream_errors(monkeypatch, lead, error, expected):
+    monkeypatch.setattr("app.llm._router", Mock(side_effect=error))
     with pytest.raises(expected) as raised:
         analyze_lead(lead)
-    assert "private text" not in str(raised.value)
+    assert "private" not in str(raised.value)

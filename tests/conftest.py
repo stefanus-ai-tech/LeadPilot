@@ -6,8 +6,8 @@ from app.schemas import LeadAnalysis, LeadInput
 
 
 @pytest.fixture(autouse=True)
-def block_live_ollama(monkeypatch):
-    monkeypatch.setattr("app.llm.Client", Mock(side_effect=AssertionError("Unit tests must not call Ollama")))
+def block_live_laya(monkeypatch):
+    monkeypatch.setattr("app.llm._router", Mock(side_effect=AssertionError("Unit tests must not load Laya")))
 
 
 @pytest.fixture

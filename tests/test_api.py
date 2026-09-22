@@ -13,7 +13,7 @@ def client():
         yield client
 
 
-def test_health_without_ollama(client):
+def test_health_without_laya(client):
     response = client.get("/health")
     assert response.status_code == 200
     assert response.json() == {"status": "ok"}
@@ -50,7 +50,7 @@ def test_missing_fields_and_malformed_json(client):
 
 
 @pytest.mark.parametrize("error,status", [(LLMOutputError("Invalid analysis"), 502),
-    (LLMTimeoutError("Analysis timed out"), 504), (LLMUnavailableError("Ollama unavailable"), 503)])
+    (LLMTimeoutError("Analysis timed out"), 504), (LLMUnavailableError("Laya unavailable"), 503)])
 def test_upstream_error_responses(client, monkeypatch, lead_data, error, status):
     monkeypatch.setattr("app.pipeline.analyze_lead", Mock(side_effect=error))
     response = client.post("/triage", json=lead_data)

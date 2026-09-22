@@ -11,7 +11,7 @@
 [![Python 3.11+](https://img.shields.io/badge/Python-3.11%2B-3776AB?style=for-the-badge&logo=python&logoColor=white)](https://www.python.org/)
 [![FastAPI](https://img.shields.io/badge/FastAPI-0.115%2B-009688?style=for-the-badge&logo=fastapi&logoColor=white)](https://fastapi.tiangolo.com/)
 [![Pydantic v2](https://img.shields.io/badge/Pydantic-v2-E92063?style=for-the-badge&logo=pydantic&logoColor=white)](https://docs.pydantic.dev/)
-[![Ollama](https://img.shields.io/badge/Ollama-Granite_4.2_3B-000000?style=for-the-badge&logo=ollama&logoColor=white)](https://ollama.com/)
+[![Laya](https://img.shields.io/badge/Model-Laya-000000?style=for-the-badge)](https://github.com/NandhaKishorM/laya)
 [![Tests Passing](https://img.shields.io/badge/Tests-99%20Passed-2EA44F?style=for-the-badge&logo=githubactions&logoColor=white)]()
 
 <br/>
@@ -34,7 +34,7 @@
 
 ## 🌟 Overview
 
-**LeadPilot** bridges the gap between **unstructured customer inquiries** and **actionable sales prioritization**. It analyzes inbound leads using a **local, on-device Large Language Model** (`granite4.2:3b` via Ollama) and pairs it with a **strict, deterministic Python scoring algorithm**.
+**LeadPilot** bridges the gap between **unstructured customer inquiries** and **actionable sales prioritization**. It classifies inbound leads locally with [Laya](https://github.com/NandhaKishorM/laya) and pairs its typed decisions with a **deterministic Python scoring algorithm**. The summary is extracted from the lead message because Laya does not generate text.
 
 No lead data ever leaves your hardware. No monthly OpenAI API bills. No brittle multi-step Zapier or n8n webhooks.
 
@@ -74,13 +74,13 @@ flowchart TD
 
     A[📥 Inbound Lead<br/>CSV Batch Files / REST API]:::input --> B[1. Pydantic v2 Normalization<br/>Strip Whitespace · Sanitize Email · Type Enforcement]:::pydantic
     
-    B --> C[2. Ollama Local LLM granite4.2:3b<br/>JSON Schema Enforced · temp=0 · num_predict=512]:::llm
+    B --> C[2. Laya local decision engine<br/>Typed choice and noul questions]:::llm
     
     subgraph S1 [Semantic Extraction]
         C -.-> D1[Intent Classification]
         C -.-> D2[Urgency Assessment]
         C -.-> D3[Service Fit Match]
-        C -.-> D4[Self-Reported Confidence]
+        C -.-> D4[Choice Confidence]
     end
 
     C --> E[3. Deterministic Python Scoring Engine<br/>Additive Points: Budget + Company Size + Urgency + Fit]:::score
@@ -109,7 +109,7 @@ flowchart TD
       <h3>🎯 Hybrid Intelligence Engine</h3>
       <ul>
         <li><b>Semantic parsing:</b> Understands Indonesian & English intent nuances.</li>
-        <li><b>Zero hallucination on numbers:</b> Calculations handled by hard-coded Python math, not probabilistic generation.</li>
+        <li><b>Deterministic numbers:</b> Calculations handled by Python math; Laya returns typed decisions.</li>
         <li><b>Auto-Audit Trail:</b> Returns explicit justification strings for every point awarded.</li>
       </ul>
     </td>
@@ -120,7 +120,7 @@ flowchart TD
       <ul>
         <li>Fully documented OpenAPI / Swagger schema at <code>/docs</code>.</li>
         <li>Strict error boundaries (422 validation, 502 bad format, 503 unavailable, 504 timeout).</li>
-        <li>High test coverage (98 unit tests + live Ollama smoke test).</li>
+        <li>Unit tests and an opt-in live Laya smoke test.</li>
       </ul>
     </td>
     <td width="50%">
@@ -173,7 +173,7 @@ TOTAL SCORE = Budget Points + Company Size Points + Service Fit + Urgency + Stro
 ### 1. Prerequisites
 - **OS:** Windows 10/11, macOS, or Linux
 - **Python:** 3.11 or newer
-- **Ollama:** Installed and running ([Download Ollama](https://ollama.com/))
+- **Laya:** Python package and model checkpoints from [the Laya repository](https://github.com/NandhaKishorM/laya)
 
 ### 2. Installation (PowerShell / Terminal)
 
@@ -185,8 +185,8 @@ cd LeadPilot
 py -3.11 -m venv .venv
 .\.venv\Scripts\python.exe -m pip install -r requirements.txt
 
-# Pull the lightweight local model (approx. 2 GB)
-ollama pull granite4.2:3b
+# On first analysis, Laya downloads its checkpoints from Hugging Face.
+# Later analysis uses cached checkpoints locally.
 
 # Verify installation with the automated test suite
 .\.venv\Scripts\python.exe -m pytest -q
@@ -261,8 +261,8 @@ Run as a headless microservice for your internal systems:
     "strong_intent": true,
     "clear_requirement": true,
     "budget_mentioned": true,
-    "summary": "Acme Labs requires an automated sales triage pipeline with Google Sheets and WhatsApp integration starting next week.",
-    "confidence": 0.95
+    "summary": "We need an automated pipeline to triage website contact forms and push qualified leads into Google Sheets and WhatsApp immediately.",
+    "confidence": 0.8
   },
   "scoring": {
     "score": 100,
@@ -319,13 +319,13 @@ Each batch run generates an isolated output folder containing both spreadsheet a
 
 ## 🧪 Testing Suite
 
-LeadPilot includes an enterprise-grade test suite with **99 automated tests**:
+LeadPilot includes an automated test suite:
 
 ```powershell
-# Run unit tests (Mocked LLM & Excel exporter, runs in ~1.5s)
+# Run unit tests (mocked Laya decisions)
 .\.venv\Scripts\python.exe -m pytest -q
 
-# Run live end-to-end integration smoke test with real Ollama model
+# Run live end-to-end integration smoke test with real Laya checkpoints
 .\.venv\Scripts\python.exe smoke_test.py
 ```
 
@@ -343,7 +343,7 @@ LeadPilot/
 ├── app/
 │   ├── batch.py             # CSV engine, atomic checkpointing, Excel sanitization
 │   ├── excel.py             # Executive-ready styled Excel exporter (openpyxl)
-│   ├── llm.py               # Ollama client, JSON Schema validation, prompt templates
+│   ├── llm.py               # Laya router, typed questions, analysis mapping
 │   ├── main.py              # FastAPI endpoints & static dashboard mount
 │   ├── pipeline.py          # Lead triage orchestration
 │   ├── schemas.py           # Pydantic v2 data models

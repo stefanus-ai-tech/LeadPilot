@@ -91,8 +91,8 @@ def process_csv(source: Path, output_root: Path, *, limit: int | None = None,
                 analyze: Callable = triage_lead, report: Callable = print):
     source = source.resolve()
     raw, headers, rows = load_csv(source)
-    # Invalidate old results when input, pipeline code, model or host changes.
-    signature = raw + MODEL_NAME.encode() + os.getenv("OLLAMA_HOST", "local").encode()
+    # Invalidate old results when input, pipeline code, or model changes.
+    signature = raw + MODEL_NAME.encode()
     for filename in ("batch.py", "excel.py", "llm.py", "schemas.py", "scoring.py", "pipeline.py", "validation.py"):
         signature += (Path(__file__).parent / filename).read_bytes()
     digest = hashlib.sha256(signature).hexdigest()[:16]

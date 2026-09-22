@@ -20,7 +20,7 @@ def pick_path(kind):
 
 
 def main():
-    parser = argparse.ArgumentParser(description="LeadPilot batch CSV dengan Ollama lokal")
+    parser = argparse.ArgumentParser(description="LeadPilot batch CSV dengan Laya lokal")
     parser.add_argument("path", nargs="?", help="CSV atau folder berisi CSV (tidak rekursif)")
     parser.add_argument("--pick", choices=["file", "folder"])
     parser.add_argument("--output", type=Path, default=Path(__file__).parent / "batch_output")
